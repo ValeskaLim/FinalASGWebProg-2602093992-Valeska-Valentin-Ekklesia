@@ -59,7 +59,8 @@
 
     <div class="container mt-4">
         <div style="border: 2px solid black;border-radius: 5px;width:fit-content">
-            <a href="{{ route('home') }}" class="p-2 d-flex align-items-center text-decoration-none" style="color:black;width:100%">
+            <a href="{{ route('home') }}" class="p-2 d-flex align-items-center text-decoration-none"
+                style="color:black;width:100%">
                 <img src="{{ asset('assets/back.png') }}" alt="Arrow" width="15" height="15">
                 <p class="m-0 ps-2">Back</p>
             </a>
@@ -201,7 +202,6 @@
                         messageElement.appendChild(profilePicture);
                         chatArea.appendChild(messageElement);
 
-                        // Clear the input field
                         document.getElementById('chat_input').value = '';
 
                         chatArea.scrollTop = chatArea.scrollHeight;

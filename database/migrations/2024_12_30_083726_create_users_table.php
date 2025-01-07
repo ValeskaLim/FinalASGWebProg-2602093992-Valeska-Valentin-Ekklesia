@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('phone_number', 15);
             $table->string('instagram_link')->unique();
             $table->bigInteger('registration_price');
+            $table->bigInteger('wallet')->default(0);
             $table->timestamps();
         });
 

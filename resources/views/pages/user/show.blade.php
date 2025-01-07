@@ -35,16 +35,16 @@
         @auth
             @if ($loggedInUser->id !== $user->id)
                 @if ($isFriend)
-                    {{-- If already friends --}}
+                    {{-- already friends --}}
                     <form action="{{ route('user.remove.friend', $user->id) }}" method="POST">
                         @csrf
                         <button type="submit" class="btn btn-danger">Remove Friend</button>
                     </form>
                 @elseif ($loggedInUser->sentFriendRequests->where('receiver_id', $user->id)->count())
-                    {{-- If friend request is already sent --}}
+                    {{-- friend request is already sent --}}
                     <button type="button" class="btn btn-warning" disabled>Friend Request Sent</button>
                 @elseif ($loggedInUser->receivedFriendRequests->where('sender_id', $user->id)->count())
-                    {{-- If there is a friend request to accept or reject --}}
+                    {{-- there is a friend request to accept or reject --}}
                     <form action="{{ route('user.accept.friend', $user->id) }}" method="POST" style="display: inline;">
                         @csrf
                         <button type="submit" class="btn btn-success">Accept Friend Request</button>
@@ -54,7 +54,7 @@
                         <button type="submit" class="btn btn-danger">Reject Friend Request</button>
                     </form>
                 @else
-                    {{-- If no friend request exists --}}
+                    {{-- no friend request exists --}}
                     <form action="{{ route('user.add.friend', $user->id) }}" method="POST">
                         @csrf
                         <button type="submit" class="btn btn-success">Add Friend</button>

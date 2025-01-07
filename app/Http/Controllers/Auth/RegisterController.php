@@ -56,6 +56,7 @@ class RegisterController extends Controller
             'phone_number' => $request->input('phone_number'),
             'instagram_link' => $request->input('instagram_link'),
             'registration_price' => $registrationPrice,
+            'wallet' => 0,
         ]);
 
         return redirect()->route('register.payment');
@@ -85,10 +86,14 @@ class RegisterController extends Controller
         $registrationPrice = $userData['registration_price'];
         $paymentAmount = $request->input('payment_amount');
 
+        $walletAmount = 0;
+
         $addToWallet = $request->input('add_to_wallet');
 
         if ($addToWallet === 'yes') {
-            $overpaidAmount = $paymentAmount - $registrationPrice;
+            $overpaidAmount = $request->session()->get('overpaidAmount', 0);
+
+            $walletAmount = $overpaidAmount;
 
             User::create([
                 'username' => $userData['username'],
@@ -98,15 +103,17 @@ class RegisterController extends Controller
                 'phone_number' => $userData['phone_number'],
                 'instagram_link' => $userData['instagram_link'],
                 'registration_price' => $userData['registration_price'],
+                'wallet' => $overpaidAmount,
             ]);
 
-            $request->session()->forget('registration_user');
+            $request->session()->forget(['registration_user', 'overpaidAmount']);
 
             return redirect()->route('login')->with('success', 'Payment successful! Registration completed. Your overpaid amount has been added to your wallet.');
         }
 
         if ($paymentAmount > $registrationPrice) {
             $overpaidAmount = $paymentAmount - $registrationPrice;
+            $request->session()->put('overpaidAmount', $overpaidAmount);
             return back()->with('overpaid', $overpaidAmount);
         }
 
@@ -123,6 +130,7 @@ class RegisterController extends Controller
             'phone_number' => $userData['phone_number'],
             'instagram_link' => $userData['instagram_link'],
             'registration_price' => $userData['registration_price'],
+            'wallet' => $walletAmount,
         ]);
 
         $request->session()->forget('registration_user');

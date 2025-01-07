@@ -11,10 +11,10 @@
                     <a class="nav-link fs-5" href="{{ route('chat') }}">Chat</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link fs-5" href="#">About</a>
+                    <a class="nav-link fs-5" href="{{ route('avatar') }}">Avatar</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link fs-5" href="#">Contact</a>
+                    <a class="nav-link fs-5" href="{{ route('topup') }}">Topup</a>
                 </li>
                 @if (Auth::check())
                     <li class="nav-item">

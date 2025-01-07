@@ -30,14 +30,14 @@
             font-weight: 500;
         }
 
-        h1, h2 {
+        h1,
+        h2 {
             font-weight: 700;
             color: #444;
         }
     </style>
 
     <div class="container mt-4">
-        {{-- Alert Messages --}}
         @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
@@ -50,7 +50,6 @@
             </div>
         @endif
 
-        {{-- Search Results Header --}}
         <h1 class="text-center mb-4">Search Results</h1>
 
         {{-- Display Message if No Results --}}
@@ -68,7 +67,7 @@
                         <a href="{{ route('user.show', $user->id) }}" class="text-decoration-none">
                             <div class="user-card text-center bg-white p-4 shadow-sm rounded">
                                 <img src="{{ $user->profile_picture }}" alt="{{ $user->username }}'s profile picture"
-                                     width="100" height="100" class="rounded-circle mb-3">
+                                    width="100" height="100" class="rounded-circle mb-3">
                                 <h5 class="fw-bold">{{ $user->username }}</h5>
                                 <p class="m-0 text-muted"><strong>Hobbies</strong></p>
                                 <p class="text-muted">{{ $user->hobbies }}</p>

@@ -26,6 +26,7 @@ class UserSeeder extends Seeder
                 'phone_number' => $faker->phoneNumber,
                 'instagram_link' => $faker->unique()->url,
                 'registration_price' => $faker->numberBetween(1000, 10000),
+                'wallet' => $faker->numberBetween(0, 10000),
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
