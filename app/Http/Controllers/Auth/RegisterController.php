@@ -28,7 +28,7 @@ class RegisterController extends Controller
 
         $hobbiesArray = explode(',', $request->input('hobbies'));
         if (count($hobbiesArray) < 3) {
-            return back()->withErrors(['hobbies' => 'Please provide at least 3 hobbies separated by commas.']);
+            return back()->withErrors(['hobbies' => __('messages.hobbies_error')]);
         }
 
         $existingUser = User::where('username', $request->input('username'))
@@ -38,7 +38,7 @@ class RegisterController extends Controller
 
         if ($existingUser) {
             return back()->withErrors([
-                'username' => 'User already exists with the same username, phone number, or Instagram link.',
+                'username' => __('messages.user_exist_message'),
             ]);
         }
 
@@ -67,7 +67,7 @@ class RegisterController extends Controller
         $userData = session('registration_user');
 
         if (!$userData) {
-            return redirect()->route('register')->with('error', 'Session expired. Please register again.');
+            return redirect()->route('register')->with('error', __('messages.register_expired'));
         }
 
         $registrationPrice = $userData['registration_price'];
@@ -80,7 +80,7 @@ class RegisterController extends Controller
         $userData = session('registration_user');
 
         if (!$userData) {
-            return redirect()->route('register')->with('error', 'Session expired. Please register again.');
+            return redirect()->route('register')->with('error', __('messages.register_expired'));
         }
 
         $registrationPrice = $userData['registration_price'];
@@ -108,7 +108,7 @@ class RegisterController extends Controller
 
             $request->session()->forget(['registration_user', 'overpaidAmount']);
 
-            return redirect()->route('login')->with('success', 'Payment successful! Registration completed. Your overpaid amount has been added to your wallet.');
+            return redirect()->route('login')->with('success', __('messages.register_success_overpaid'));
         }
 
         if ($paymentAmount > $registrationPrice) {
@@ -119,7 +119,7 @@ class RegisterController extends Controller
 
         if ($paymentAmount < $registrationPrice) {
             $underpaidAmount = $registrationPrice - $paymentAmount;
-            return back()->with('error', "You are still underpaid by IDR $underpaidAmount. Please enter the exact amount.");
+            return back()->with('error', __('messages.underpaid_message', ['underpaidAmount' => $underpaidAmount]));
         }
 
         User::create([
@@ -135,6 +135,6 @@ class RegisterController extends Controller
 
         $request->session()->forget('registration_user');
 
-        return redirect()->route('login')->with('success', 'Payment successful! Registration completed.');
+        return redirect()->route('login')->with('success', __('messages.register_success'));
     }
 }

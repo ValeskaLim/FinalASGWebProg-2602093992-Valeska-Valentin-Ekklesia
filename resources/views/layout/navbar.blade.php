@@ -20,16 +20,22 @@
                     <li class="nav-item">
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf
-                            <button type="submit" class="btn btn-danger">Logout</button>
+                            <button type="submit" class="btn btn-danger">@lang('messages.logout')</button>
                         </form>
                     </li>
                 @else
                     <li class="nav-item">
                         <a href="{{ route('login') }}">
-                            <button type="submit" class="btn btn-primary">Login</button>
+                            <button type="submit" class="btn btn-primary">@lang('messages.login')</button>
                         </a>
                     </li>
                 @endif
+                <li class="nav-item">
+                    <a href="{{ route('set-locale', 'en') }}" class="btn btn-link">EN</a>
+                </li>
+                <li class="nasv-item">
+                    <a href="{{ route('set-locale', 'id') }}" class="btn btn-link">ID</a>
+                </li>
             </ul>
         </div>
 

@@ -25,22 +25,22 @@ class UserController extends Controller
         $userToAdd = User::findOrFail($id);
 
         if ($loggedInUser->id === $id) {
-            return redirect()->route('user.show', $id)->with('error', "You cannot send a friend request to yourself.");
+            return redirect()->route('user.show', $id)->with('error', __('messages.error_friendself'));
         }
 
         if ($loggedInUser->sentFriendRequests()->where('receiver_id', $id)->exists()) {
-            return redirect()->route('user.show', $id)->with('error', "Friend request already sent.");
+            return redirect()->route('user.show', $id)->with('error', __('messages.friend_request_message'));
         }
 
         if ($loggedInUser->receivedFriendRequests()->where('sender_id', $id)->exists()) {
-            return redirect()->route('user.show', $id)->with('error', "You already have a pending friend request from this user.");
+            return redirect()->route('user.show', $id)->with('error', __('messages.pending_request_message'));
         }
 
         $loggedInUser->sentFriendRequests()->create([
             'receiver_id' => $id,
         ]);
 
-        return redirect()->route('user.show', $id)->with('success', "Friend request sent to {$userToAdd->username}.");
+        return redirect()->route('user.show', $id)->with('success', __('messages.friend_request_sent_success', ['username' => $userToAdd->username]));
     }
 
     public function acceptFriendRequest($id)
@@ -53,7 +53,7 @@ class UserController extends Controller
 
         $friendRequest->delete();
 
-        return redirect()->route('home')->with('success', "You are now friends with {$friendRequest->sender->username}.");
+        return redirect()->route('home')->with('success', __('messages.already_friend_message', ['username' => $friendRequest->sender->username]));
     }
 
     public function rejectFriendRequest($id)
@@ -63,7 +63,7 @@ class UserController extends Controller
 
         $friendRequest->delete();
 
-        return redirect()->route('home')->with('success', "Friend request from {$friendRequest->sender->username} rejected.");
+        return redirect()->route('home')->with('success', __('messages.reject_friend_message', ['username' => $friendRequest->sender->username]));
     }
 
 
@@ -75,9 +75,9 @@ class UserController extends Controller
         if ($loggedInUser && $loggedInUser->friends()->where('friend_id', $id)->exists()) {
             $loggedInUser->friends()->detach($userToRemove);
             $userToRemove->friends()->detach($loggedInUser);
-            return redirect()->route('user.show', $id)->with('success', "{$userToRemove->username} removed from your friends.");
+            return redirect()->route('user.show', $id)->with('success', __('messages.remove_friend_message', ['username' => $userToRemove->username]));
         }
 
-        return redirect()->route('user.show', $id)->with('error', "{$userToRemove->username} is not your friend.");
+        return redirect()->route('user.show', $id)->with('error', __('messages.not_friend_message', ['username' => $userToRemove->username]));
     }
 }

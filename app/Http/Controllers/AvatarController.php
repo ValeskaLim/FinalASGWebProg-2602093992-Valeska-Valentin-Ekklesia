@@ -22,13 +22,13 @@ class AvatarController extends Controller
         $avatar = Avatar::findOrFail($id);
 
         if ($loggedInUser->avatars->contains($avatar)) {
-            return back()->with('error', 'You already bought this avatar.');
+            return back()->with('error', __('messages.already_bought_avatar_message'));
         }
 
         $avatarPrice = $avatar->price;
 
         if ($loggedInUser->wallet < $avatarPrice) {
-            return back()->with('error', 'You do not have enough balance to purchase this avatar.');
+            return back()->with('error', __('messages.no_enough_balance_message'));
         }
 
         $loggedInUser->wallet -= $avatarPrice;
@@ -36,6 +36,6 @@ class AvatarController extends Controller
 
         $loggedInUser->save();
 
-        return back()->with('success', 'Avatar purchased successfully!');
+        return back()->with('success', __('messages.avatar_buy_success'));
     }
 }

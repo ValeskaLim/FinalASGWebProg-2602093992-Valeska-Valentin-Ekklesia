@@ -55,32 +55,32 @@
         <form method="GET" action="{{ url('/home') }}" class="mb-4">
             <div class="row">
                 <div class="col-6">
-                    <input type="text" name="search" class="form-control" placeholder="Search users..."
+                    <input type="text" name="search" class="form-control" placeholder="@lang('messages.username_placeholder_search')"
                         value="{{ request()->input('search') }}">
                 </div>
                 <div class="col-2">
                     <select name="gender" class="form-control">
-                        <option value="">All Genders</option>
-                        <option value="Male" {{ request()->input('gender') == 'Male' ? 'selected' : '' }}>Male</option>
-                        <option value="Female" {{ request()->input('gender') == 'Female' ? 'selected' : '' }}>Female
+                        <option value="">@lang('messages.gender0_option_search')</option>
+                        <option value="Male" {{ request()->input('gender') == 'Male' ? 'selected' : '' }}>@lang('messages.gender1')</option>
+                        <option value="Female" {{ request()->input('gender') == 'Female' ? 'selected' : '' }}>@lang('messages.gender2')
                         </option>
                     </select>
                 </div>
                 <div class="col-3">
-                    <input type="text" name="hobbies" class="form-control" placeholder="Hobbies"
+                    <input type="text" name="hobbies" class="form-control" placeholder="@lang('messages.hobbies_placeholder_search')"
                         value="{{ request()->input('hobbies') }}">
                 </div>
                 <div class="col-1">
-                    <button type="submit" class="btn btn-primary">Search</button>
+                    <button type="submit" class="btn btn-primary">@lang('messages.search_button')</button>
                 </div>
             </div>
         </form>
 
         {{-- Your Content --}}
-        <h1 class="text-center mb-4">Welcome back, {{ $loggedInUser ? $loggedInUser->username : 'Guest' }}!</h1>
+        <h1 class="text-center mb-4">@lang('messages.welcome_message', ['loggedInUser' => $loggedInUser ? $loggedInUser->username : __('messages.guest')])</h1>
 
         {{-- Friends Section --}}
-        <h2 class="mt-4">Your Friends</h2>
+        <h2 class="mt-4">@lang('messages.friend_header_home')</h2>
         @if ($friends->isNotEmpty())
             <div class="row">
                 @foreach ($friends as $friend)
@@ -90,7 +90,7 @@
                                 <img src="{{ $friend->profile_picture }}" alt="{{ $friend->username }}'s profile picture"
                                     width="100" height="100" class="rounded-circle mb-3">
                                 <h5 class="fw-bold">{{ $friend->username }}</h5>
-                                <p class="m-0 text-muted"><strong>Hobbies</strong></p>
+                                <p class="m-0 text-muted">@lang('messages.hobbies_card')</p>
                                 <p class="text-muted">{{ $friend->hobbies }}</p>
                             </div>
                         </a>
@@ -100,13 +100,13 @@
         @else
             <div class="text-center mt-4">
                 <p class="fs-4 text-muted">
-                    {{ $loggedInUser ? "You don't have any friends yet." : 'Login to see your friends' }}
+                    {{ $loggedInUser ? __('messages.no_friend') : __('messages.guest_friend') }}
                 </p>
             </div>
         @endif
 
         {{-- Other Users Section --}}
-        <h2 class="mt-5">Other Users</h2>
+        <h2 class="mt-5">@lang('messages.users_header_home')</h2>
         <div class="row">
             @if ($otherUsers->isNotEmpty())
                 @foreach ($otherUsers as $user)
@@ -116,7 +116,7 @@
                                 <img src="{{ $user->profile_picture }}" alt="{{ $user->username }}'s profile picture"
                                     width="100" height="100" class="rounded-circle mb-3">
                                 <h5 class="fw-bold">{{ $user->username }}</h5>
-                                <p class="m-0 text-muted"><strong>Hobbies</strong></p>
+                                <p class="m-0 text-muted">@lang('messages.hobbies_card')</p>
                                 <p class="text-muted">{{ $user->hobbies }}</p>
                             </div>
                         </a>
@@ -125,7 +125,7 @@
             @else
                 <div class="text-center mt-4">
                     <p class="fs-4 text-muted">
-                        There are currently no users to display.
+                        @lang('messages.no_users')
                     </p>
                 </div>
             @endif

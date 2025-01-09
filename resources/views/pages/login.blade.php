@@ -3,19 +3,19 @@
 @section('content')
     <div class="d-flex justify-content-center align-items-center vh-100 bg-light">
         <div class="card p-4 shadow rounded" style="width: 400px; background-color: #ffffff;">
-            <h3 class="text-center mb-4 fw-bold" style="color: #333;">Login</h3>
+            <h3 class="text-center mb-4 fw-bold" style="color: #333;">@lang('messages.login')</h3>
             <form method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="mb-3">
-                    <label for="username" class="form-label fw-semibold">Username</label>
+                    <label for="username" class="form-label fw-semibold">@lang('messages.username')</label>
                     <input type="text" id="username" name="username" class="form-control rounded-2" required>
                 </div>
                 <div class="mb-3">
-                    <label for="password" class="form-label fw-semibold">Password</label>
+                    <label for="password" class="form-label fw-semibold">@lang('messages.password')</label>
                     <input type="password" id="password" name="password" class="form-control rounded-2" required>
                 </div>
-                <button type="submit" class="btn btn-primary w-100 rounded-2 fw-bold">Login</button>
-                <a href="{{ route('register') }}" class="d-block text-center mt-3 fw-semibold text-decoration-none" style="color: #007bff;">Don't have an account yet? Register Now</a>
+                <button type="submit" class="btn btn-primary w-100 rounded-2 fw-bold">@lang('messages.login')</button>
+                <a href="{{ route('register') }}" class="d-block text-center mt-3 fw-semibold text-decoration-none" style="color: #007bff;">@lang('messages.register_message')</a>
             </form>
 
             @if (session('success'))

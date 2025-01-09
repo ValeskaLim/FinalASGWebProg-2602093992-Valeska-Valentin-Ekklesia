@@ -62,14 +62,14 @@
             <a href="{{ route('home') }}" class="p-2 d-flex align-items-center text-decoration-none"
                 style="color:black;width:100%">
                 <img src="{{ asset('assets/back.png') }}" alt="Arrow" width="15" height="15">
-                <p class="m-0 ps-2">Back</p>
+                <p class="m-0 ps-2">@lang('messages.back')</p>
             </a>
         </div>
-        <h1 class="mb-5">Chat with Friends</h1>
+        <h1 class="mb-5">@lang('messages.chat_header')</h1>
         <div class="row">
             <!-- Friends List -->
             <div class="col-md-4">
-                <h3>Your Friends</h3>
+                <h3>@lang('messages.friend_header_home')</h3>
                 <ul class="list-group">
                     @foreach ($friends as $friend)
                         <li id="friend_{{ $friend->id }}" class="list-group-item d-flex align-items-center">
@@ -98,10 +98,10 @@
                 </div>
                 <form id="chat_form" class="mt-3" onsubmit="sendMessage(); return false;">
                     <div class="input-group">
-                        <input type="text" id="chat_input" class="form-control" placeholder="Type a message..."
+                        <input type="text" id="chat_input" class="form-control" placeholder="@lang('messages.input_chat_placeholder')"
                             style="border-top-left-radius: 5px;border-bottom-left-radius: 5px">
                         <button type="button" class="btn btn-primary" onclick="sendMessage()"
-                            style="border-top-right-radius: 5px;border-bottom-right-radius: 5px">Send</button>
+                            style="border-top-right-radius: 5px;border-bottom-right-radius: 5px">@lang('messages.send_chat_button')</button>
                     </div>
                 </form>
             </div>

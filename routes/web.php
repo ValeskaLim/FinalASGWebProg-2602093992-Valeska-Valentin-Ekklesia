@@ -6,10 +6,14 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\AvatarController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\TopupController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AuthenticateUser;
+use App\Http\Middleware\SetLocale;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
+
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
@@ -27,11 +31,15 @@ Route::get('/', function () {
     return redirect()->route('home');
 });
 
+Route::get('/set-locale/{locale}', function ($locale) {
+    if (in_array($locale, ['en', 'id'])) {
+        session(['locale' => $locale]);
+    }
+    return redirect()->back();
+})->name('set-locale');
+
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::get('/about-us', function () {
-    return view('about');
-});
 
 Route::middleware([AuthenticateUser::class])->prefix('user')->group(function () {
     Route::get('/{id}', [UserController::class, 'show'])->name('user.show');
@@ -56,3 +64,10 @@ Route::middleware([AuthenticateUser::class])->prefix('topup')->group(function ()
     Route::get('/', [TopupController::class, 'index'])->name('topup');
     Route::post('/buy', [TopupController::class, 'buy'])->name('topup.buy');
 });
+
+Route::get('/set-locale/{locale}', function ($locale) {
+    if (in_array($locale, ['en', 'id'])) {
+        session(['locale' => $locale]);
+    }
+    return redirect()->back();
+})->name('set-locale');

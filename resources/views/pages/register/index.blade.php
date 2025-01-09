@@ -3,12 +3,12 @@
 @section('content')
     <div class="d-flex justify-content-center align-items-center vh-100 bg-light">
         <div class="card p-4 shadow rounded" style="width: 100%; max-width: 400px;">
-            <h3 class="text-center mb-4">Register</h3>
+            <h3 class="text-center mb-4">@lang('messages.register')</h3>
             <form method="POST" action="{{ route('register') }}">
                 @csrf
 
                 <div class="mb-3">
-                    <label for="username" class="form-label">Username</label>
+                    <label for="username" class="form-label">@lang('messages.username')</label>
                     <input 
                         type="text" 
                         id="username" 
@@ -22,14 +22,14 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="gender" class="form-label">Gender</label>
+                    <label for="gender" class="form-label">@lang('messages.gender')</label>
                     <select 
                         name="gender" 
                         id="gender" 
                         class="form-select @error('gender') is-invalid @enderror" 
                         required>
-                        <option value="Male" {{ old('gender') == 'Male' ? 'selected' : '' }}>Male</option>
-                        <option value="Female" {{ old('gender') == 'Female' ? 'selected' : '' }}>Female</option>
+                        <option value="Male" {{ old('gender') == 'Male' ? 'selected' : '' }}>@lang('messages.gender1')</option>
+                        <option value="Female" {{ old('gender') == 'Female' ? 'selected' : '' }}>@lang('messages.gender2')</option>
                     </select>
                     @error('gender')
                         <span class="invalid-feedback">{{ $message }}</span>
@@ -37,7 +37,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="hobbies" class="form-label">Hobbies (separate with commas)</label>
+                    <label for="hobbies" class="form-label">@lang('messages.hobbies_register')</label>
                     <input 
                         type="text" 
                         id="hobbies" 
@@ -51,7 +51,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="phone_number" class="form-label">Phone Number</label>
+                    <label for="phone_number" class="form-label">@lang('messages.phone_number')</label>
                     <input 
                         type="text" 
                         id="phone_number" 
@@ -65,7 +65,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="instagram_link" class="form-label">Instagram Link</label>
+                    <label for="instagram_link" class="form-label">@lang('messages.instagram_link')</label>
                     <input 
                         type="url" 
                         id="instagram_link" 
@@ -79,7 +79,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
+                    <label for="password" class="form-label">@lang('messages.password')</label>
                     <input 
                         type="password" 
                         id="password" 
@@ -91,8 +91,8 @@
                     @enderror
                 </div>
 
-                <button type="submit" class="btn btn-primary w-100 rounded-2 fw-bold">Register</button>
-                <a href="{{ route('login') }}" class="d-block text-center mt-3">Already have an account? Login now</a>
+                <button type="submit" class="btn btn-primary w-100 rounded-2 fw-bold">@lang('messages.register')</button>
+                <a href="{{ route('login') }}" class="d-block text-center mt-3">@lang('messages.login_message')</a>
 
                 @if (session('success'))
                     <div class="alert alert-success mt-3">

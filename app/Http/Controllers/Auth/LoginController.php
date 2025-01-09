@@ -21,11 +21,11 @@ class LoginController extends Controller
         if(Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect()->intended('home')->with('success', 'Login successful!');
+            return redirect()->intended('home')->with('success', __('messages.login_success'));
         }
 
         return back()->withErrors([
-            'username' => 'Invalid username or password',
+            'username' => __('messages.login_error'),
         ])->onlyInput('username');
     }
 }

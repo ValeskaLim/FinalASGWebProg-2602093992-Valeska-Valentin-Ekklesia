@@ -7,16 +7,16 @@
                 class="rounded-circle">
             <h1>{{ $loggedInUser->username }}</h1>
             <h3>
-                Your wallet is
+                @lang('messages.your_wallet')
                 <strong class="{{ $loggedInUser->wallet == 0 ? 'text-danger' : 'text-success' }}">
-                    ${{ $loggedInUser->wallet }}
+                    IDR{{ $loggedInUser->wallet }}
                 </strong>
             </h3>
 
             <form action="{{ route('topup.buy') }}" method="POST">
                 @csrf
                 <button type="submit" class="btn btn-primary fs-5 mt-5">
-                    Topup Here! (+100 coins)
+                    @lang('messages.topup_button')
                 </button>
             </form>
         </div>

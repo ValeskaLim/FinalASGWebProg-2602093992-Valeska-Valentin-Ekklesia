@@ -22,7 +22,7 @@ class AvatarSeeder extends Seeder
             DB::table('avatars')->insert([
                 'name' => $faker->unique()->firstName() . ' Avatar',
                 'image_url' => $imageUrl,
-                'price' => $faker->numberBetween(10, 100000),
+                'price' => $faker->numberBetween(50, 100000),
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
